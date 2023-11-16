@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\HomeController;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +18,36 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [HomeController::class, 'index']);
+   
+
+
+//{friend} = Paramètre obligatoire
+//{friend?} = Paramètre optionel
+//HomeController->friend
+Route::get('/fiorella/{friend?}',[AboutController::class, 'friend']);
+    
+    //AboutController -> index
+
+
+Route::get('/a-propos/{user?}', function(Request $request,$user = null){
+    return view('a-propos',[
+        'title'=> 'webflix',
+        'team' => [
+            [
+                'name' => 'Fiorella',
+                'job' => 'CEO',
+                'image' => 'https://i.pravatar.cc/150?u=fiorella',
+            ],
+            [
+                'name' => 'Toto',
+                'job' => 'CTO',
+                'image' => 'https://i.pravatar.cc/150?u=remi',
+                
+            ],
+        ],
+        
+    ]
+        
+    );
 });
